@@ -3,7 +3,7 @@ const API_URL =
 
 const servicesEl = document.getElementById("services");
 
-// Placeholder testi (poi li puoi mettere in Xano)
+/* testi temporanei (poi li puoi portare in Xano) */
 const titles = [
   "Matrimoni ed eventi",
   "Social Eating",
@@ -44,4 +44,7 @@ fetch(API_URL)
       servicesEl.appendChild(section);
     });
   })
-  .catch(err => console.error("Errore Xano:", err));
+  .catch(err => {
+    console.error("Errore caricamento Xano:", err);
+  });
+
