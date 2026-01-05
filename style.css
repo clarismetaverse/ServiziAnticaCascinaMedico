@@ -1,9 +1,97 @@
 
+/* =========================
+   RESET
+   ========================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #ffffff;
+}
+
+/* =========================
+   CONTAINER
+   ========================= */
+.services {
+  width: 100%;
+}
+
+/* =========================
+   SERVICE BLOCK (DESKTOP)
+   ========================= */
+.service {
+  display: flex;
+  min-height: 60vh;
+  margin-bottom: 4rem;
+}
+
+/* Alternanza desktop */
+.service:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+/* =========================
+   IMAGE (FIX DEFINITIVO)
+   ========================= */
+.service__image {
+  width: 100%;
+  flex: 1;
+  aspect-ratio: 4 / 3;          /* 🔑 chiave */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* =========================
+   CONTENT
+   ========================= */
+.service__content {
+  flex: 1;
+  background: #4f6463;
+  color: #ffffff;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.service__content h2 {
+  font-size: 2.2rem;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.service__content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+/* =========================
+   CTA
+   ========================= */
+.btn {
+  margin-top: 2rem;
+  align-self: flex-start;
+  padding: 0.9rem 1.8rem;
+  background: #ffffff;
+  color: #4f6463;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2px;
+}
+
+/* =========================
+   MOBILE – RESPONSIVE VERO
+   ========================= */
 @media (max-width: 768px) {
   .service {
     flex-direction: column;
     min-height: auto;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.5rem; /* meno blocchi infiniti */
   }
 
   .service__image {
@@ -17,11 +105,13 @@
 
   .service__content h2,
   .service__content p {
-    max-width: 34ch;
+    max-width: 34ch; /* leggibilità */
   }
 
   .btn {
     align-self: center;
     margin-top: 1.25rem;
+    padding: 1rem 2.2rem;
+    font-size: 1rem;
   }
 }
