@@ -3,7 +3,7 @@ const API_URL =
 
 const servicesEl = document.getElementById("services");
 
-/* testi temporanei (poi li puoi portare in Xano) */
+/* TITOLI */
 const titles = [
   "Matrimoni ed eventi",
   "Social Eating",
@@ -13,6 +13,7 @@ const titles = [
   "Abbonamento brunch domenicale"
 ];
 
+/* DESCRIZIONI */
 const descriptions = [
   "Dove il paesaggio diventa scenografia e ogni dettaglio diventa emozione.",
   "Cene a tema su richiesta con cucina vegana, vegetariana e piemontese.",
@@ -22,12 +23,24 @@ const descriptions = [
   "Un rituale domenicale di gusto e benessere."
 ];
 
+/* LINK PAGINE WIX */
+const links = [
+  "https://caldrovandi.wixsite.com/website-2/matrimoni",
+  "https://caldrovandi.wixsite.com/website-2/social-eating",
+  "https://caldrovandi.wixsite.com/website-2/yoga-meditazione-e-trattamenti",
+  "https://caldrovandi.wixsite.com/website-2/digital-detox",
+  "https://caldrovandi.wixsite.com/website-2/escursioni",
+  null // brunch NON collegato (per ora)
+];
+
 fetch(API_URL)
   .then(res => res.json())
   .then(data => {
     data.forEach((item, index) => {
       const section = document.createElement("section");
       section.className = "service";
+
+      const link = links[index];
 
       section.innerHTML = `
         <div class="service__image"
@@ -37,7 +50,12 @@ fetch(API_URL)
         <div class="service__content">
           <h2>${titles[index] ?? "Servizio"}</h2>
           <p>${descriptions[index] ?? ""}</p>
-          <a href="#" class="btn">Leggi di più</a>
+
+          ${
+            link
+              ? `<a href="${link}" class="btn" target="_top">Leggi di più</a>`
+              : `<span class="btn disabled">In arrivo</span>`
+          }
         </div>
       `;
 
@@ -47,4 +65,3 @@ fetch(API_URL)
   .catch(err => {
     console.error("Errore caricamento Xano:", err);
   });
-
