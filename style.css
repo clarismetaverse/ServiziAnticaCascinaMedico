@@ -65,5 +65,28 @@ body {
 
   .service__content {
     padding: 2rem;
+  } 
+
+@media (max-width: 768px) {
+  .service {
+    display: flex;
+    flex-direction: column;
   }
+
+  .service__image {
+    order: 1;
+    width: 100%;
+    height: 240px;          /* controllata */
+  }
+
+  .service__content {
+    order: 2;
+    padding: 2rem 1.5rem;
+  }
+}
+
+
+
+
+  
 }
