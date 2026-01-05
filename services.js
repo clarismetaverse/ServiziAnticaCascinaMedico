@@ -3,59 +3,62 @@ const API_URL =
 
 const servicesEl = document.getElementById("services");
 
-/* TITOLI */
-const titles = [
-  "Matrimoni ed eventi",
-  "Social Eating",
-  "Yoga, meditazione e trattamenti",
-  "Digital detox",
-  "Escursioni e noleggio E-bike",
-  "Abbonamento brunch domenicale"
-];
-
-/* DESCRIZIONI */
-const descriptions = [
-  "Dove il paesaggio diventa scenografia e ogni dettaglio diventa emozione.",
-  "Cene a tema su richiesta con cucina vegana, vegetariana e piemontese.",
-  "Lezioni personalizzate e trattamenti detossificanti.",
-  "Un weekend per staccare davvero e ricaricare le energie.",
-  "Alla scoperta del territorio biellese in E-bike.",
-  "Un rituale domenicale di gusto e benessere."
-];
-
-/* LINK PAGINE WIX */
-const links = [
-  "https://caldrovandi.wixsite.com/website-2/matrimoni",
-  "https://caldrovandi.wixsite.com/website-2/social-eating",
-  "https://caldrovandi.wixsite.com/website-2/yoga-meditazione-e-trattamenti",
-  "https://caldrovandi.wixsite.com/website-2/digital-detox",
-  "https://caldrovandi.wixsite.com/website-2/escursioni",
-  null // brunch NON collegato (per ora)
+/* Copy locale (ok per ora, poi spostabile in Xano) */
+const SERVICES_COPY = [
+  {
+    title: "Matrimoni ed eventi",
+    text: "Dove il paesaggio diventa scenografia e ogni dettaglio diventa emozione.",
+    link: "#"
+  },
+  {
+    title: "Social Eating",
+    text: "Cene a tema su richiesta con cucina vegana, vegetariana e piemontese.",
+    link: "#"
+  },
+  {
+    title: "Yoga, meditazione e trattamenti",
+    text: "Lezioni personalizzate e trattamenti detossificanti.",
+    link: "#"
+  },
+  {
+    title: "Digital detox",
+    text: "Un weekend per staccare davvero e ricaricare le energie.",
+    link: "#"
+  },
+  {
+    title: "Escursioni e noleggio E-bike",
+    text: "Alla scoperta del territorio biellese in E-bike.",
+    link: "#"
+  },
+  {
+    title: "Abbonamento brunch domenicale",
+    text: "Un rituale domenicale di gusto e benessere, su richiesta.",
+    link: "#"
+  }
 ];
 
 fetch(API_URL)
   .then(res => res.json())
   .then(data => {
     data.forEach((item, index) => {
+      /* 🔒 guardia: niente blocchi rotti */
+      if (!item.Image || !item.Image.url) return;
+
+      const copy = SERVICES_COPY[index] || {};
+
       const section = document.createElement("section");
       section.className = "service";
 
-      const link = links[index];
-
       section.innerHTML = `
-        <div class="service__image"
+        <div
+          class="service__image"
           style="background-image:url('${item.Image.url}')">
         </div>
 
         <div class="service__content">
-          <h2>${titles[index] ?? "Servizio"}</h2>
-          <p>${descriptions[index] ?? ""}</p>
-
-          ${
-            link
-              ? `<a href="${link}" class="btn" target="_top">Leggi di più</a>`
-              : `<span class="btn disabled">In arrivo</span>`
-          }
+          <h2>${copy.title || "Servizio"}</h2>
+          <p>${copy.text || ""}</p>
+          <a href="${copy.link || "#"}" class="btn">Leggi di più</a>
         </div>
       `;
 
@@ -63,5 +66,6 @@ fetch(API_URL)
     });
   })
   .catch(err => {
-    console.error("Errore caricamento Xano:", err);
+    console.error("Errore fetch Xano:", err);
   });
+
