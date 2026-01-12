@@ -175,3 +175,8 @@ fetch(API_URL)
     console.error("Errore fetch Xano:", err);
   });
 
+// prevenzione scroll interno iframe Wix
+document.body.style.overflow = "hidden";
+document.documentElement.style.overflow = "hidden";
+
+
