@@ -1,149 +1,155 @@
-/* =========================
+/* ===============================
    CONFIG
-   ========================= */
+================================ */
+
 const API_URL =
   "https://xbut-eryu-hhsg.f2.xano.io/api:fXy8ZMiW/Pictures";
 
 const servicesEl = document.getElementById("services");
 
-/* =========================
-   LINGUA (da Wix → URL)
-   ========================= */
+/* ===============================
+   LANGUAGE DETECTION
+================================ */
+
 const params = new URLSearchParams(window.location.search);
-const LANG = params.get("lang") || document.documentElement.dataset.lang || "it";
+const lang = params.get("lang") || "it";
 
-/* aggiorna attributo <html lang=""> */
-document.documentElement.lang = LANG;
+/* ===============================
+   TRANSLATIONS
+================================ */
 
-/* =========================
-   TITLE MULTILINGUA
-   ========================= */
-const PAGE_TITLES = {
-  it: "Servizi – Antica Cascina del Medico",
-  en: "Services – Antica Cascina del Medico",
-  fr: "Services – Antica Cascina del Medico"
+const I18N = {
+  it: {
+    pageTitle: "Servizi – Antica Cascina del Medico",
+    button: "Leggi di più",
+    services: [
+      {
+        title: "Matrimoni ed eventi",
+        text:
+          "Dove il paesaggio diventa scenografia e ogni dettaglio diventa emozione."
+      },
+      {
+        title: "Social Eating",
+        text:
+          "Cene a tema su richiesta con cucina vegana, vegetariana e piemontese."
+      },
+      {
+        title: "Yoga, meditazione e trattamenti",
+        text:
+          "Lezioni personalizzate e trattamenti detossificanti."
+      },
+      {
+        title: "Digital detox",
+        text:
+          "Un weekend per staccare davvero e ricaricare le energie."
+      },
+      {
+        title: "Escursioni e noleggio E-bike",
+        text:
+          "Alla scoperta del territorio biellese in E-bike."
+      },
+      {
+        title: "Abbonamento brunch domenicale",
+        text:
+          "Un rituale domenicale di gusto e benessere, su richiesta."
+      }
+    ]
+  },
+
+  en: {
+    pageTitle: "Services – Antica Cascina del Medico",
+    button: "Read more",
+    services: [
+      {
+        title: "Weddings & Events",
+        text:
+          "Where the landscape becomes a stage and every detail turns into emotion."
+      },
+      {
+        title: "Social Eating",
+        text:
+          "Themed dinners on request with vegan, vegetarian and local cuisine."
+      },
+      {
+        title: "Yoga, meditation & treatments",
+        text:
+          "Personalized lessons and detox treatments."
+      },
+      {
+        title: "Digital detox",
+        text:
+          "A weekend to truly disconnect and recharge."
+      },
+      {
+        title: "E-bike tours & rental",
+        text:
+          "Discovering the Biella area by E-bike."
+      },
+      {
+        title: "Sunday brunch subscription",
+        text:
+          "A Sunday ritual of taste and wellbeing, on request."
+      }
+    ]
+  },
+
+  fr: {
+    pageTitle: "Services – Antica Cascina del Medico",
+    button: "En savoir plus",
+    services: [
+      {
+        title: "Mariages et événements",
+        text:
+          "Quand le paysage devient décor et chaque détail une émotion."
+      },
+      {
+        title: "Social Eating",
+        text:
+          "Dîners à thème sur demande avec cuisine végane, végétarienne et locale."
+      },
+      {
+        title: "Yoga, méditation et soins",
+        text:
+          "Cours personnalisés et soins détoxifiants."
+      },
+      {
+        title: "Digital detox",
+        text:
+          "Un week-end pour vraiment déconnecter et se ressourcer."
+      },
+      {
+        title: "Excursions et location de vélos électriques",
+        text:
+          "À la découverte du territoire de Biella en vélo électrique."
+      },
+      {
+        title: "Abonnement brunch du dimanche",
+        text:
+          "Un rituel dominical de goût et de bien-être, sur demande."
+      }
+    ]
+  }
 };
 
-document.title = PAGE_TITLES[LANG] || PAGE_TITLES.it;
+const COPY = I18N[lang] || I18N.it;
 
-/* =========================
-   COPY MULTILINGUA
-   ========================= */
-const SERVICES_COPY = {
-  it: [
-    {
-      title: "Matrimoni ed eventi",
-      text: "Dove il paesaggio diventa scenografia e ogni dettaglio diventa emozione.",
-      link: "#"
-    },
-    {
-      title: "Social Eating",
-      text: "Cene a tema su richiesta con cucina vegana, vegetariana e piemontese.",
-      link: "#"
-    },
-    {
-      title: "Yoga, meditazione e trattamenti",
-      text: "Lezioni personalizzate e trattamenti detossificanti.",
-      link: "#"
-    },
-    {
-      title: "Digital detox",
-      text: "Un weekend per staccare davvero e ricaricare le energie.",
-      link: "#"
-    },
-    {
-      title: "Escursioni e noleggio E-bike",
-      text: "Alla scoperta del territorio biellese in E-bike.",
-      link: "#"
-    },
-    {
-      title: "Abbonamento brunch domenicale",
-      text: "Un rituale domenicale di gusto e benessere, su richiesta.",
-      link: "#"
-    }
-  ],
+/* ===============================
+   APPLY PAGE TITLE
+================================ */
 
-  en: [
-    {
-      title: "Weddings & Events",
-      text: "Where the landscape becomes a stage and every detail turns into emotion.",
-      link: "#"
-    },
-    {
-      title: "Social Eating",
-      text: "Themed dinners on request with vegan, vegetarian and local cuisine.",
-      link: "#"
-    },
-    {
-      title: "Yoga, meditation and treatments",
-      text: "Personalized classes and detoxifying treatments.",
-      link: "#"
-    },
-    {
-      title: "Digital detox",
-      text: "A weekend to truly disconnect and recharge.",
-      link: "#"
-    },
-    {
-      title: "E-bike tours & rentals",
-      text: "Discover the Biella area with guided E-bike excursions.",
-      link: "#"
-    },
-    {
-      title: "Sunday brunch membership",
-      text: "A Sunday ritual of taste and wellbeing, on request.",
-      link: "#"
-    }
-  ],
+document.title = COPY.pageTitle;
 
-  fr: [
-    {
-      title: "Mariages et événements",
-      text: "Là où le paysage devient une scène et chaque détail une émotion.",
-      link: "#"
-    },
-    {
-      title: "Social Eating",
-      text: "Dîners à thème sur demande avec cuisine végane, végétarienne et locale.",
-      link: "#"
-    },
-    {
-      title: "Yoga, méditation et soins",
-      text: "Cours personnalisés et soins détoxifiants.",
-      link: "#"
-    },
-    {
-      title: "Détox digitale",
-      text: "Un week-end pour se déconnecter vraiment et se ressourcer.",
-      link: "#"
-    },
-    {
-      title: "Excursions et location de E-bike",
-      text: "À la découverte du territoire de Biella en vélo électrique.",
-      link: "#"
-    },
-    {
-      title: "Abonnement brunch du dimanche",
-      text: "Un rituel dominical de goût et de bien-être, sur demande.",
-      link: "#"
-    }
-  ]
-};
+/* ===============================
+   FETCH & RENDER
+================================ */
 
-/* fallback sicuro */
-const COPY = SERVICES_COPY[LANG] || SERVICES_COPY.it;
-
-/* =========================
-   FETCH + RENDER
-   ========================= */
 fetch(API_URL)
   .then(res => res.json())
   .then(data => {
     data.forEach((item, index) => {
-      /* guardia: niente blocchi rotti */
       if (!item.Image || !item.Image.url) return;
 
-      const copy = COPY[index];
+      const copy = COPY.services[index];
       if (!copy) return;
 
       const section = document.createElement("section");
@@ -158,7 +164,7 @@ fetch(API_URL)
         <div class="service__content">
           <h2>${copy.title}</h2>
           <p>${copy.text}</p>
-          <a href="${copy.link}" class="btn">Leggi di più</a>
+          <a href="#" class="btn">${COPY.button}</a>
         </div>
       `;
 
