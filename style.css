@@ -1,9 +1,10 @@
 /* =========================
-   RESET TOTALE
+   RESET BASE
    ========================= */
 * {
   box-sizing: border-box;
 }
+
 html,
 body {
   margin: 0;
@@ -13,19 +14,13 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* 🔑 blocchiamo SOLO lo scroll interno */
-.services {
-  width: 100%;
-  background: #4f6463;
-  overflow-x: hidden;
-  overflow-y: visible;
-}
 /* =========================
-   CONTAINER
+   CONTAINER PRINCIPALE
    ========================= */
 .services {
   width: 100%;
   background: #4f6463;
+  overflow-x: hidden;   /* evita doppio scroll orizzontale */
 }
 
 /* =========================
@@ -33,11 +28,11 @@ body {
    ========================= */
 .service {
   display: flex;
-  min-height: 60vh;
   width: 100%;
+  min-height: 60vh;
 }
 
-/* Alternanza desktop */
+/* alternanza immagine/testo */
 .service:nth-child(even) {
   flex-direction: row-reverse;
 }
@@ -116,5 +111,6 @@ body {
   }
 
   .btn {
-    align-self: ce
-
+    align-self: center;   /* ✅ ORA È CORRETTO */
+  }
+}
