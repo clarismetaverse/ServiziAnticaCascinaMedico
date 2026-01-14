@@ -1,4 +1,3 @@
-
 /* =========================
    CONFIG
    ========================= */
@@ -45,7 +44,6 @@ const COPY = {
       }
     ]
   },
-
   en: {
     pageTitle: "Services – Antica Cascina del Medico",
     cta: "Read more",
@@ -82,7 +80,6 @@ const COPY = {
       }
     ]
   },
-
   fr: {
     pageTitle: "Services – Antica Cascina del Medico",
     cta: "En savoir plus",
@@ -130,21 +127,24 @@ function getLang() {
   return ["it", "en", "fr"].includes(lang) ? lang : "it";
 }
 
+/* 🔑 comunica a Wix l'altezza reale */
+function notifyWixHeight() {
+  const height = document.documentElement.scrollHeight;
+  window.parent.postMessage(
+    { type: "resize", height },
+    "*"
+  );
+}
+
 /* =========================
    MAIN
    ========================= */
 document.addEventListener("DOMContentLoaded", () => {
   const servicesEl = document.getElementById("services");
-
-  if (!servicesEl) {
-    console.error("❌ #services container not found");
-    return;
-  }
+  if (!servicesEl) return;
 
   const lang = getLang();
   const copy = COPY[lang];
-
-  /* aggiorna title */
   document.title = copy.pageTitle;
 
   fetch(API_URL)
@@ -154,18 +154,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       data.forEach((item, index) => {
         if (!item?.Image?.url) return;
-
-        const textCopy = copy.services[index];
-        if (!textCopy) return;
+        const c = copy.services[index];
+        if (!c) return;
 
         const section = document.createElement("section");
         section.className = "service";
-
         section.innerHTML = `
-          <div
-            class="service__image"
-            style="background-image:url('${item.Image.url}')">
-          </div>
-
+          <div class="service__image"
+               style="background-image:url('${item.Image.url}')"></div>
           <div class="service__content">
-            <h2
+            <h2>${c.title}</h2>
+            <p>${c.text}</p>
+            <a href="${c.link}" class="btn">${copy.cta}</a>
+          </div>
+        `;
+        servicesEl.appendChild(section);
+      });
+
+      /* 🔥 resize finale */
+      setTimeout(notifyWixHeight, 100);
+    })
+    .catch(err => console.error("Fetch error:", err));
+});
