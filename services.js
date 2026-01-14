@@ -5,7 +5,7 @@ const API_URL =
   "https://xbut-eryu-hhsg.f2.xano.io/api:fXy8ZMiW/Pictures";
 
 /* =========================
-   MULTI-LANGUAGE COPY
+   MULTI-LANGUAGE COPY + LINKS WIX
    ========================= */
 const COPY = {
   it: {
@@ -15,35 +15,36 @@ const COPY = {
       {
         title: "Matrimoni ed eventi",
         text: "Dove il paesaggio diventa scenografia e ogni dettaglio diventa emozione.",
-        link: "#"
+        link: "/website-2/matrimoni"
       },
       {
         title: "Social Eating",
         text: "Cene a tema su richiesta con cucina vegana, vegetariana e piemontese.",
-        link: "#"
+        link: "/social-eating"
       },
       {
         title: "Yoga, meditazione e trattamenti",
         text: "Lezioni personalizzate e trattamenti detossificanti.",
-        link: "#"
+        link: "/yoga-meditazione-e-trattamenti"
       },
       {
         title: "Digital detox",
         text: "Un weekend per staccare davvero e ricaricare le energie.",
-        link: "#"
+        link: "/digital-detox"
       },
       {
         title: "Escursioni e noleggio E-bike",
         text: "Alla scoperta del territorio biellese in E-bike.",
-        link: "#"
+        link: "/escursioni"
       },
       {
-        title: "Abbonamento brunch domenicale",
-        text: "Un rituale domenicale di gusto e benessere, su richiesta.",
-        link: "#"
+        title: "Organizza eventi e cerimonie",
+        text: "Esperienze su misura per eventi privati e aziendali.",
+        link: "/organizza-eventi-cerimonie"
       }
     ]
   },
+
   en: {
     pageTitle: "Services – Antica Cascina del Medico",
     cta: "Read more",
@@ -51,68 +52,69 @@ const COPY = {
       {
         title: "Weddings & Events",
         text: "Where the landscape becomes a stage and every detail turns into emotion.",
-        link: "#"
+        link: "/en/website-2/matrimoni"
       },
       {
         title: "Social Eating",
         text: "Themed dinners on request with vegan, vegetarian and local cuisine.",
-        link: "#"
+        link: "/en/social-eating"
       },
       {
         title: "Yoga, Meditation & Treatments",
         text: "Personalized sessions and detox treatments.",
-        link: "#"
+        link: "/en/yoga-meditazione-e-trattamenti"
       },
       {
         title: "Digital Detox",
         text: "A weekend to truly disconnect and recharge.",
-        link: "#"
+        link: "/en/digital-detox"
       },
       {
         title: "E-bike Tours & Rental",
         text: "Discover the Biella area by E-bike.",
-        link: "#"
+        link: "/en/escursioni"
       },
       {
-        title: "Sunday Brunch Membership",
-        text: "A weekly ritual of taste and well-being, on request.",
-        link: "#"
+        title: "Events & Ceremonies",
+        text: "Tailor-made experiences for private and corporate events.",
+        link: "/en/organizza-eventi-cerimonie"
       }
     ]
   },
+
   fr: {
     pageTitle: "Services – Antica Cascina del Medico",
     cta: "En savoir plus",
     services: [
       {
         title: "Mariages & Événements",
-        text: "Quand le paysage devient décor et chaque détail émotion.",
-        link: "#"
+        text: "Quand le paysage devient décor et chaque détail une émotion.",
+        link: "/fr/website-2/matrimoni"
       },
       {
         title: "Social Eating",
         text: "Dîners à thème sur demande avec cuisine végane, végétarienne et locale.",
-        link: "#"
+        link: "/fr/social-eating"
       },
       {
         title: "Yoga, Méditation & Soins",
         text: "Séances personnalisées et soins détoxifiants.",
-        link: "#"
+        link: "/fr/yoga-meditazione-e-trattamenti"
       },
       {
         title: "Digital Detox",
         text: "Un week-end pour se déconnecter et se ressourcer.",
-        link: "#"
+        link: "/fr/digital-detox"
       },
       {
         title: "Excursions & Location E-bike",
         text: "Découvrez le territoire de Biella en E-bike.",
-        link: "#"
+        link: "/fr/escursioni"
       },
       {
-        title: "Abonnement Brunch du Dimanche",
-        text: "Un rituel dominical de goût et de bien-être, sur demande.",
-        link: "#"
+        title: "Événements & Cérémonies",
+        text: "Expériences sur mesure pour événements privés et professionnels.",
+        link: "/fr/organizza-eventi-cerimonie"
       }
     ]
   }
@@ -127,13 +129,10 @@ function getLang() {
   return ["it", "en", "fr"].includes(lang) ? lang : "it";
 }
 
-/* 🔑 comunica a Wix l'altezza reale */
+/* comunica a Wix l'altezza reale */
 function notifyWixHeight() {
   const height = document.documentElement.scrollHeight;
-  window.parent.postMessage(
-    { type: "resize", height },
-    "*"
-  );
+  window.parent.postMessage({ type: "resize", height }, "*");
 }
 
 /* =========================
@@ -145,6 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const lang = getLang();
   const copy = COPY[lang];
+
+  document.documentElement.lang = lang;
   document.title = copy.pageTitle;
 
   fetch(API_URL)
@@ -171,8 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
         servicesEl.appendChild(section);
       });
 
-      /* 🔥 resize finale */
-      setTimeout(notifyWixHeight, 100);
+      /* resize finale per Wix */
+      setTimeout(notifyWixHeight, 150);
     })
     .catch(err => console.error("Fetch error:", err));
 });
