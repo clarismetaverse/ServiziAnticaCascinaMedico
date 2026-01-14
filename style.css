@@ -88,29 +88,55 @@ body {
 }
 
 /* =========================
-   MOBILE – RESPONSIVE PULITO
+   MOBILE – VERSIONE DEFINITIVA
    ========================= */
 @media (max-width: 768px) {
+
+  .services {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
   .service {
+    display: flex;
     flex-direction: column;
+    width: 100%;
     min-height: auto;
   }
 
+  /* niente alternanza su mobile */
+  .service:nth-child(even) {
+    flex-direction: column;
+  }
+
   .service__image {
-    order: 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    background-position: center;
+    background-size: cover;
   }
 
   .service__content {
-    order: 2;
-    padding: 2rem 1.25rem 3rem;
+    width: 100%;
+    padding: 2rem 1.5rem 2.5rem;
+    text-align: left;
   }
 
-  .service__content h2,
+  .service__content h2 {
+    font-size: 1.8rem;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+
   .service__content p {
-    max-width: 34ch;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 100%;
   }
 
   .btn {
-    align-self: center;   /* ✅ ORA È CORRETTO */
+    margin-top: 1.5rem;
+    align-self: flex-start;
   }
 }
