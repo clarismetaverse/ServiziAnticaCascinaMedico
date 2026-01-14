@@ -1,182 +1,171 @@
-/* ===============================
-   CONFIG
-================================ */
 
+/* =========================
+   CONFIG
+   ========================= */
 const API_URL =
   "https://xbut-eryu-hhsg.f2.xano.io/api:fXy8ZMiW/Pictures";
 
-const servicesEl = document.getElementById("services");
-
-/* ===============================
-   LANGUAGE DETECTION
-================================ */
-
-const params = new URLSearchParams(window.location.search);
-const lang = params.get("lang") || "it";
-
-/* ===============================
-   TRANSLATIONS
-================================ */
-
-const I18N = {
+/* =========================
+   MULTI-LANGUAGE COPY
+   ========================= */
+const COPY = {
   it: {
     pageTitle: "Servizi – Antica Cascina del Medico",
-    button: "Leggi di più",
+    cta: "Leggi di più",
     services: [
       {
         title: "Matrimoni ed eventi",
-        text:
-          "Dove il paesaggio diventa scenografia e ogni dettaglio diventa emozione."
+        text: "Dove il paesaggio diventa scenografia e ogni dettaglio diventa emozione.",
+        link: "#"
       },
       {
         title: "Social Eating",
-        text:
-          "Cene a tema su richiesta con cucina vegana, vegetariana e piemontese."
+        text: "Cene a tema su richiesta con cucina vegana, vegetariana e piemontese.",
+        link: "#"
       },
       {
         title: "Yoga, meditazione e trattamenti",
-        text:
-          "Lezioni personalizzate e trattamenti detossificanti."
+        text: "Lezioni personalizzate e trattamenti detossificanti.",
+        link: "#"
       },
       {
         title: "Digital detox",
-        text:
-          "Un weekend per staccare davvero e ricaricare le energie."
+        text: "Un weekend per staccare davvero e ricaricare le energie.",
+        link: "#"
       },
       {
         title: "Escursioni e noleggio E-bike",
-        text:
-          "Alla scoperta del territorio biellese in E-bike."
+        text: "Alla scoperta del territorio biellese in E-bike.",
+        link: "#"
       },
       {
         title: "Abbonamento brunch domenicale",
-        text:
-          "Un rituale domenicale di gusto e benessere, su richiesta."
+        text: "Un rituale domenicale di gusto e benessere, su richiesta.",
+        link: "#"
       }
     ]
   },
 
   en: {
     pageTitle: "Services – Antica Cascina del Medico",
-    button: "Read more",
+    cta: "Read more",
     services: [
       {
         title: "Weddings & Events",
-        text:
-          "Where the landscape becomes a stage and every detail turns into emotion."
+        text: "Where the landscape becomes a stage and every detail turns into emotion.",
+        link: "#"
       },
       {
         title: "Social Eating",
-        text:
-          "Themed dinners on request with vegan, vegetarian and local cuisine."
+        text: "Themed dinners on request with vegan, vegetarian and local cuisine.",
+        link: "#"
       },
       {
-        title: "Yoga, meditation & treatments",
-        text:
-          "Personalized lessons and detox treatments."
+        title: "Yoga, Meditation & Treatments",
+        text: "Personalized sessions and detox treatments.",
+        link: "#"
       },
       {
-        title: "Digital detox",
-        text:
-          "A weekend to truly disconnect and recharge."
+        title: "Digital Detox",
+        text: "A weekend to truly disconnect and recharge.",
+        link: "#"
       },
       {
-        title: "E-bike tours & rental",
-        text:
-          "Discovering the Biella area by E-bike."
+        title: "E-bike Tours & Rental",
+        text: "Discover the Biella area by E-bike.",
+        link: "#"
       },
       {
-        title: "Sunday brunch subscription",
-        text:
-          "A Sunday ritual of taste and wellbeing, on request."
+        title: "Sunday Brunch Membership",
+        text: "A weekly ritual of taste and well-being, on request.",
+        link: "#"
       }
     ]
   },
 
   fr: {
     pageTitle: "Services – Antica Cascina del Medico",
-    button: "En savoir plus",
+    cta: "En savoir plus",
     services: [
       {
-        title: "Mariages et événements",
-        text:
-          "Quand le paysage devient décor et chaque détail une émotion."
+        title: "Mariages & Événements",
+        text: "Quand le paysage devient décor et chaque détail émotion.",
+        link: "#"
       },
       {
         title: "Social Eating",
-        text:
-          "Dîners à thème sur demande avec cuisine végane, végétarienne et locale."
+        text: "Dîners à thème sur demande avec cuisine végane, végétarienne et locale.",
+        link: "#"
       },
       {
-        title: "Yoga, méditation et soins",
-        text:
-          "Cours personnalisés et soins détoxifiants."
+        title: "Yoga, Méditation & Soins",
+        text: "Séances personnalisées et soins détoxifiants.",
+        link: "#"
       },
       {
-        title: "Digital detox",
-        text:
-          "Un week-end pour vraiment déconnecter et se ressourcer."
+        title: "Digital Detox",
+        text: "Un week-end pour se déconnecter et se ressourcer.",
+        link: "#"
       },
       {
-        title: "Excursions et location de vélos électriques",
-        text:
-          "À la découverte du territoire de Biella en vélo électrique."
+        title: "Excursions & Location E-bike",
+        text: "Découvrez le territoire de Biella en E-bike.",
+        link: "#"
       },
       {
-        title: "Abonnement brunch du dimanche",
-        text:
-          "Un rituel dominical de goût et de bien-être, sur demande."
+        title: "Abonnement Brunch du Dimanche",
+        text: "Un rituel dominical de goût et de bien-être, sur demande.",
+        link: "#"
       }
     ]
   }
 };
 
-const COPY = I18N[lang] || I18N.it;
+/* =========================
+   UTILS
+   ========================= */
+function getLang() {
+  const params = new URLSearchParams(window.location.search);
+  const lang = params.get("lang");
+  return ["it", "en", "fr"].includes(lang) ? lang : "it";
+}
 
-/* ===============================
-   APPLY PAGE TITLE
-================================ */
+/* =========================
+   MAIN
+   ========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const servicesEl = document.getElementById("services");
 
-document.title = COPY.pageTitle;
+  if (!servicesEl) {
+    console.error("❌ #services container not found");
+    return;
+  }
 
-/* ===============================
-   FETCH & RENDER
-================================ */
+  const lang = getLang();
+  const copy = COPY[lang];
 
-fetch(API_URL)
-  .then(res => res.json())
-  .then(data => {
-    data.forEach((item, index) => {
-      if (!item.Image || !item.Image.url) return;
+  /* aggiorna title */
+  document.title = copy.pageTitle;
 
-      const copy = COPY.services[index];
-      if (!copy) return;
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+      if (!Array.isArray(data)) return;
 
-      const section = document.createElement("section");
-      section.className = "service";
+      data.forEach((item, index) => {
+        if (!item?.Image?.url) return;
 
-      section.innerHTML = `
-        <div
-          class="service__image"
-          style="background-image:url('${item.Image.url}')">
-        </div>
+        const textCopy = copy.services[index];
+        if (!textCopy) return;
 
-        <div class="service__content">
-          <h2>${copy.title}</h2>
-          <p>${copy.text}</p>
-          <a href="#" class="btn">${COPY.button}</a>
-        </div>
-      `;
+        const section = document.createElement("section");
+        section.className = "service";
 
-      servicesEl.appendChild(section);
-    });
-  })
-  .catch(err => {
-    console.error("Errore fetch Xano:", err);
-  });
+        section.innerHTML = `
+          <div
+            class="service__image"
+            style="background-image:url('${item.Image.url}')">
+          </div>
 
-// prevenzione scroll interno iframe Wix
-document.body.style.overflow = "hidden";
-document.documentElement.style.overflow = "hidden";
-
-
+          <div class="service__content">
+            <h2
