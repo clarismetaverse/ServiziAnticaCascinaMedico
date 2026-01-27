@@ -1,142 +1,82 @@
-/* =========================
-   RESET BASE
-   ========================= */
-* {
-  box-sizing: border-box;
+:root{
+  --brand: #3F5F59;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  background: #4f6463;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+/* reset iframe Wix */
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--brand);
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* =========================
-   CONTAINER PRINCIPALE
-   ========================= */
-.services {
-  width: 100%;
-  background: #4f6463;
-  overflow-x: hidden;   /* evita doppio scroll orizzontale */
+.services{
+  width:100%;
 }
 
-/* =========================
-   SERVICE BLOCK (DESKTOP)
-   ========================= */
-.service {
-  display: flex;
-  width: 100%;
-  min-height: 60vh;
+/* block */
+.service{
+  display:flex;
+  width:100%;
+  min-height:65vh;
 }
 
-/* alternanza immagine/testo */
-.service:nth-child(even) {
-  flex-direction: row-reverse;
+.service:nth-child(even){
+  flex-direction:row-reverse;
 }
 
-/* =========================
-   IMAGE
-   ========================= */
-.service__image {
-  flex: 1;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.service__image{
+  flex:1;
+  background-size:cover;
+  background-position:center;
 }
 
-/* =========================
-   CONTENT
-   ========================= */
-.service__content {
-  flex: 1;
-  background: #4f6463;
-  color: #ffffff;
-  padding: 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.service__content{
+  flex:1;
+  background:var(--brand);
+  color:#fff;
+  padding:4rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
-/* TYPO */
-.service__content h2 {
-  font-size: 2.2rem;
-  margin: 0 0 1rem 0;
-  line-height: 1.2;
+.service__content h2{
+  font-size:2.4rem;
+  margin-bottom:1rem;
 }
 
-.service__content p {
-  font-size: 1rem;
-  line-height: 1.6;
-  max-width: 420px;
+.service__content p{
+  max-width:420px;
+  line-height:1.6;
 }
 
-/* CTA */
-.btn {
-  margin-top: 2rem;
-  align-self: flex-start;
-  padding: 0.9rem 1.8rem;
-  background: #ffffff;
-  color: #4f6463;
-  text-decoration: none;
-  font-weight: 500;
-  border-radius: 2px;
+.btn{
+  margin-top:2rem;
+  background:#fff;
+  color:var(--brand);
+  padding:0.9rem 1.8rem;
+  text-decoration:none;
+  font-weight:600;
+  display:inline-block;
 }
 
-/* =========================
-   MOBILE – VERSIONE DEFINITIVA
-   ========================= */
-@media (max-width: 768px) {
-
-  .services {
-    width: 100%;
-    overflow-x: hidden;
+/* MOBILE PERFETTO */
+@media(max-width:768px){
+  .service{
+    flex-direction:column !important;
+    min-height:auto;
   }
 
-  .service {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: auto;
+  .service__image{
+    height:260px;
   }
 
-  /* niente alternanza su mobile */
-  .service:nth-child(even) {
-    flex-direction: column;
+  .service__content{
+    padding:2rem 1.5rem 3rem;
   }
 
-  .service__image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    background-position: center;
-    background-size: cover;
-  }
-
-  .service__content {
-    width: 100%;
-    padding: 2rem 1.5rem 2.5rem;
-    text-align: left;
-  }
-
-  .service__content h2 {
-    font-size: 1.8rem;
-    line-height: 1.25;
-    margin-bottom: 0.75rem;
-  }
-
-  .service__content p {
-    font-size: 1rem;
-    line-height: 1.6;
-    max-width: 100%;
-  }
-
-  .btn {
-    margin-top: 1.5rem;
-    align-self: flex-start;
+  .service__content h2{
+    font-size:1.8rem;
   }
 }
