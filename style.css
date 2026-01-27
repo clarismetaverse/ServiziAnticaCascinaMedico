@@ -1,82 +1,44 @@
-:root{
-  --brand: #3F5F59;
-}
+/* =========================
+   FIX MOBILE SERVIZI
+========================= */
+@media (max-width: 768px) {
 
-/* reset iframe Wix */
-html,body{
-  margin:0;
-  padding:0;
-  background:var(--brand);
-  font-family: system-ui, -apple-system, sans-serif;
-}
-
-.services{
-  width:100%;
-}
-
-/* block */
-.service{
-  display:flex;
-  width:100%;
-  min-height:65vh;
-}
-
-.service:nth-child(even){
-  flex-direction:row-reverse;
-}
-
-.service__image{
-  flex:1;
-  background-size:cover;
-  background-position:center;
-}
-
-.service__content{
-  flex:1;
-  background:var(--brand);
-  color:#fff;
-  padding:4rem;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-.service__content h2{
-  font-size:2.4rem;
-  margin-bottom:1rem;
-}
-
-.service__content p{
-  max-width:420px;
-  line-height:1.6;
-}
-
-.btn{
-  margin-top:2rem;
-  background:#fff;
-  color:var(--brand);
-  padding:0.9rem 1.8rem;
-  text-decoration:none;
-  font-weight:600;
-  display:inline-block;
-}
-
-/* MOBILE PERFETTO */
-@media(max-width:768px){
-  .service{
-    flex-direction:column !important;
-    min-height:auto;
+  /* CARD */
+  .service {
+    min-height: auto;
+    padding: 24px 16px;
   }
 
-  .service__image{
-    height:260px;
+  /* IMMAGINE / HERO */
+  .service::before,
+  .service-image {
+    display: block;
+    height: 200px;
+    min-height: 200px;
+    background-size: cover;
+    background-position: center;
   }
 
-  .service__content{
-    padding:2rem 1.5rem 3rem;
+  /* TITOLO */
+  .service h2 {
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 12px;
   }
 
-  .service__content h2{
-    font-size:1.8rem;
+  /* TESTO */
+  .service p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  /* BOTTONE */
+  .service a,
+  .service button {
+    font-size: 14px;
+    padding: 12px 18px;
+    width: auto;
+    max-width: 100%;
   }
 }
