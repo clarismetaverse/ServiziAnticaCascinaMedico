@@ -1,44 +1,93 @@
-/* =========================
-   FIX MOBILE SERVIZI
-========================= */
-@media (max-width: 768px) {
 
-  /* CARD */
-  .service {
-    min-height: auto;
-    padding: 24px 16px;
-  }
+/* ===============================
+   FIX WIX MOBILE HEADER + BANNER
+   =============================== */
 
-  /* IMMAGINE / HERO */
-  .service::before,
-  .service-image {
-    display: block;
-    height: 200px;
-    min-height: 200px;
-    background-size: cover;
-    background-position: center;
-  }
+body {
+  margin: 0;
+  padding-top: 130px; /* spazio per header + banner Wix */
+  box-sizing: border-box;
+  font-family: "Playfair Display", serif;
+}
 
-  /* TITOLO */
-  .service h2 {
-    font-size: 22px;
-    line-height: 1.2;
-    margin-bottom: 12px;
-  }
+/* ===============================
+   SEZIONI / CARDS
+   =============================== */
 
-  /* TESTO */
-  .service p {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
+.section {
+  width: 100%;
+  padding: 32px 20px;
+  background-color: #f4f6f8;
+}
 
-  /* BOTTONE */
-  .service a,
-  .service button {
-    font-size: 14px;
-    padding: 12px 18px;
-    width: auto;
-    max-width: 100%;
-  }
+.card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 28px 22px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   TITOLI
+   =============================== */
+
+.card h2 {
+  font-size: 22px;
+  line-height: 1.25;
+  margin-bottom: 12px;
+  color: #1f2d3d;
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #4a5a6a;
+  margin-bottom: 18px;
+}
+
+/* ===============================
+   LINK / CTA
+   =============================== */
+
+.card a {
+  font-size: 14px;
+  color: #2f6fed;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   IMMAGINI (se presenti)
+   =============================== */
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  object-fit: cover;
+}
+
+/* ===============================
+   PREVIENE BOTTONI GIGANTI WIX
+   =============================== */
+
+button,
+.wixui-button {
+  font-size: 14px !important;
+  padding: 10px 16px !important;
+  border-radius: 10px !important;
+}
+
+/* ===============================
+   SAFE MOBILE FIX
+   =============================== */
+
+* {
+  max-width: 100%;
 }
