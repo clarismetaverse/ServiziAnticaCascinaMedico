@@ -1,82 +1,90 @@
-:root{
-  --brand: #3F5F59;
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* reset iframe Wix */
-html,body{
-  margin:0;
-  padding:0;
-  background:var(--brand);
-  font-family: system-ui, -apple-system, sans-serif;
+html, body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  overflow-x: hidden;
 }
 
-.services{
-  width:100%;
+/* CONTAINER */
+#services {
+  width: 100%;
 }
 
-/* block */
-.service{
-  display:flex;
-  width:100%;
-  min-height:65vh;
+/* CARD */
+.service {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.service:nth-child(even){
-  flex-direction:row-reverse;
+/* IMMAGINE */
+.service__image {
+  width: 100%;
+  height: 360px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.service__image{
-  flex:1;
-  background-size:cover;
-  background-position:center;
+/* TESTO */
+.service__content {
+  background: #1f4d3a; /* verde elegante */
+  color: white;
+  padding: 40px 25px 50px 25px;
 }
 
-.service__content{
-  flex:1;
-  background:var(--brand);
-  color:#fff;
-  padding:4rem;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+.service__content h2 {
+  font-size: 30px;
+  margin-bottom: 15px;
+  font-weight: 600;
 }
 
-.service__content h2{
-  font-size:2.4rem;
-  margin-bottom:1rem;
+.service__content p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  max-width: 600px;
 }
 
-.service__content p{
-  max-width:420px;
-  line-height:1.6;
+/* BOTTONE */
+.btn {
+  display: inline-block;
+  background: white;
+  color: #1f4d3a;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
 }
 
-.btn{
-  margin-top:2rem;
-  background:#fff;
-  color:var(--brand);
-  padding:0.9rem 1.8rem;
-  text-decoration:none;
-  font-weight:600;
-  display:inline-block;
-}
-
-/* MOBILE PERFETTO */
-@media(max-width:768px){
-  .service{
-    flex-direction:column !important;
-    min-height:auto;
+/* DESKTOP LAYOUT */
+@media (min-width: 900px) {
+  .service {
+    flex-direction: row;
+    height: 440px;
   }
 
-  .service__image{
-    height:260px;
+  .service__image {
+    width: 55%;
+    height: auto;
   }
 
-  .service__content{
-    padding:2rem 1.5rem 3rem;
+  .service__content {
+    width: 45%;
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .service__content h2{
-    font-size:1.8rem;
+  .service__content h2 {
+    font-size: 36px;
   }
 }
