@@ -23,8 +23,20 @@ function notifyWixHeight() {
   window.parent.postMessage({ type: "resize", height }, "*");
 }
 
+function goTop(url) {
+  // prova top, se Wix lo blocca fallback su parent
+  try {
+    window.top.location.href = url;
+  } catch (e) {
+    window.parent.location.href = url;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const servicesEl = document.getElementById("services");
+  if (!servicesEl) return;
+
+  document.title = COPY.it.pageTitle;
 
   fetch(API_URL)
     .then(res => res.json())
@@ -33,21 +45,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const c = COPY.it.services[index];
         if (!item?.Image?.url || !c) return;
 
+        const url = WIX_BASE + c.link;
+
         const section = document.createElement("section");
         section.className = "service";
 
+        // NB: href="#" per evitare che Wix/sandbox blocchi la navigazione nativa
         section.innerHTML = `
           <div class="service__image" style="background-image:url('${item.Image.url}')"></div>
           <div class="service__content">
             <h2>${c.title}</h2>
             <p>${c.text}</p>
-            <a href="${WIX_BASE + c.link}" target="_top" class="btn">Leggi di più</a>
+            <a href="#" class="btn" data-link="${url}">${COPY.it.cta}</a>
           </div>
         `;
+
+        // click handler: esce dall'iframe Wix
+        const btn = section.querySelector(".btn");
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          goTop(btn.dataset.link);
+        });
 
         servicesEl.appendChild(section);
       });
 
-      setTimeout(notifyWixHeight, 200);
-    });
+      setTimeout(notifyWixHeight, 250);
+    })
+    .catch(err => console.error("Fetch error:", err));
 });
