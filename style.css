@@ -1,93 +1,82 @@
-
-/* ===============================
-   FIX WIX MOBILE HEADER + BANNER
-   =============================== */
-
-body {
-  margin: 0;
-  padding-top: 130px; /* spazio per header + banner Wix */
-  box-sizing: border-box;
-  font-family: "Playfair Display", serif;
+:root{
+  --brand: #3F5F59;
 }
 
-/* ===============================
-   SEZIONI / CARDS
-   =============================== */
-
-.section {
-  width: 100%;
-  padding: 32px 20px;
-  background-color: #f4f6f8;
+/* reset iframe Wix */
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--brand);
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-.card {
-  background-color: #ffffff;
-  border-radius: 18px;
-  padding: 28px 22px;
-  margin-bottom: 28px;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+.services{
+  width:100%;
 }
 
-/* ===============================
-   TITOLI
-   =============================== */
-
-.card h2 {
-  font-size: 22px;
-  line-height: 1.25;
-  margin-bottom: 12px;
-  color: #1f2d3d;
+/* block */
+.service{
+  display:flex;
+  width:100%;
+  min-height:65vh;
 }
 
-.card p {
-  font-size: 15px;
-  line-height: 1.55;
-  color: #4a5a6a;
-  margin-bottom: 18px;
+.service:nth-child(even){
+  flex-direction:row-reverse;
 }
 
-/* ===============================
-   LINK / CTA
-   =============================== */
-
-.card a {
-  font-size: 14px;
-  color: #2f6fed;
-  text-decoration: none;
-  font-weight: 500;
+.service__image{
+  flex:1;
+  background-size:cover;
+  background-position:center;
 }
 
-.card a:hover {
-  text-decoration: underline;
+.service__content{
+  flex:1;
+  background:var(--brand);
+  color:#fff;
+  padding:4rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
-/* ===============================
-   IMMAGINI (se presenti)
-   =============================== */
-
-.card img {
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
-  margin-bottom: 18px;
-  object-fit: cover;
+.service__content h2{
+  font-size:2.4rem;
+  margin-bottom:1rem;
 }
 
-/* ===============================
-   PREVIENE BOTTONI GIGANTI WIX
-   =============================== */
-
-button,
-.wixui-button {
-  font-size: 14px !important;
-  padding: 10px 16px !important;
-  border-radius: 10px !important;
+.service__content p{
+  max-width:420px;
+  line-height:1.6;
 }
 
-/* ===============================
-   SAFE MOBILE FIX
-   =============================== */
+.btn{
+  margin-top:2rem;
+  background:#fff;
+  color:var(--brand);
+  padding:0.9rem 1.8rem;
+  text-decoration:none;
+  font-weight:600;
+  display:inline-block;
+}
 
-* {
-  max-width: 100%;
+/* MOBILE PERFETTO */
+@media(max-width:768px){
+  .service{
+    flex-direction:column !important;
+    min-height:auto;
+  }
+
+  .service__image{
+    height:260px;
+  }
+
+  .service__content{
+    padding:2rem 1.5rem 3rem;
+  }
+
+  .service__content h2{
+    font-size:1.8rem;
+  }
 }
