@@ -57,9 +57,39 @@ function notifyWixHeight() {
 }
 
 function openWixUrl(url) {
-  // Wix iframe può bloccare top navigation: apriamo in nuova tab
-  console.log("Opening:", url);
   window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function createServiceSection(item, content, index, ctaLabel) {
+  const fullUrl = WIX_BASE + content.link;
+  const isReverse = index % 2 !== 0;
+
+  const section = document.createElement("section");
+  section.className = `service${isReverse ? " service--reverse" : ""}`;
+
+  section.innerHTML = `
+    <div class="service__media">
+      <div class="service__image" style="background-image:url('${item.Image.url}')"></div>
+    </div>
+
+    <div class="service__content">
+      <div class="service__content-inner">
+        <h2>${content.title}</h2>
+        <p>${content.text}</p>
+        <a href="${fullUrl}" class="btn" rel="noopener noreferrer">
+          ${ctaLabel}
+        </a>
+      </div>
+    </div>
+  `;
+
+  const btn = section.querySelector(".btn");
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    openWixUrl(fullUrl);
+  });
+
+  return section;
 }
 
 /* =========================
@@ -73,40 +103,23 @@ document.addEventListener("DOMContentLoaded", () => {
   document.title = copy.pageTitle;
 
   fetch(API_URL)
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (!Array.isArray(data)) return;
 
+      servicesEl.innerHTML = "";
+
       data.forEach((item, index) => {
-        const c = copy.services[index];
-        if (!c || !item?.Image?.url) return;
+        const content = copy.services[index];
+        if (!content || !item?.Image?.url) return;
 
-        const fullUrl = WIX_BASE + c.link;
-
-        const section = document.createElement("section");
-        section.className = "service";
-        section.innerHTML = `
-          <div class="service__image" style="background-image:url('${item.Image.url}')"></div>
-          <div class="service__content">
-            <h2>${c.title}</h2>
-            <p>${c.text}</p>
-            <a href="${fullUrl}" class="btn" rel="noopener noreferrer">
-              ${copy.cta}
-            </a>
-          </div>
-        `;
-
-        // intercetto click per evitare blocco iframe
-        const btn = section.querySelector(".btn");
-        btn.addEventListener("click", (e) => {
-          e.preventDefault();
-          openWixUrl(fullUrl);
-        });
-
+        const section = createServiceSection(item, content, index, copy.cta);
         servicesEl.appendChild(section);
       });
 
-      setTimeout(notifyWixHeight, 200);
+      setTimeout(notifyWixHeight, 250);
+      window.addEventListener("load", notifyWixHeight);
+      window.addEventListener("resize", notifyWixHeight);
     })
-    .catch(err => console.error("Fetch error:", err));
+    .catch((err) => console.error("Fetch error:", err));
 });
