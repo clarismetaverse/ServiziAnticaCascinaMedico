@@ -52,7 +52,17 @@ const COPY = {
    UTILS
    ========================= */
 function notifyWixHeight() {
-  const height = document.documentElement.scrollHeight;
+  const body = document.body;
+  const html = document.documentElement;
+
+  const height = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
+  );
+
   window.parent.postMessage({ type: "resize", height }, "*");
 }
 
@@ -60,36 +70,48 @@ function openWixUrl(url) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
-function createServiceSection(item, content, index, ctaLabel) {
+function buildSection(item, content, index, ctaLabel) {
   const fullUrl = WIX_BASE + content.link;
-  const isReverse = index % 2 !== 0;
+  const isAlt = index % 2 !== 0;
 
   const section = document.createElement("section");
-  section.className = `service${isReverse ? " service--reverse" : ""}`;
+  section.className = `service${isAlt ? " service--alt" : ""}`;
 
   section.innerHTML = `
-    <div class="service__media">
+    <div class="service__image-wrap">
       <div class="service__image" style="background-image:url('${item.Image.url}')"></div>
     </div>
 
     <div class="service__content">
-      <div class="service__content-inner">
+      <div class="service__inner">
         <h2>${content.title}</h2>
         <p>${content.text}</p>
-        <a href="${fullUrl}" class="btn" rel="noopener noreferrer">
-          ${ctaLabel}
-        </a>
+        <a href="${fullUrl}" class="btn" rel="noopener noreferrer">${ctaLabel}</a>
       </div>
     </div>
   `;
 
   const btn = section.querySelector(".btn");
-  btn.addEventListener("click", (e) => {
+  btn.addEventListener("click", function (e) {
     e.preventDefault();
     openWixUrl(fullUrl);
   });
 
   return section;
+}
+
+function setupHeightObservers() {
+  if ("ResizeObserver" in window) {
+    const ro = new ResizeObserver(() => notifyWixHeight());
+    ro.observe(document.body);
+  }
+
+  window.addEventListener("load", notifyWixHeight);
+  window.addEventListener("resize", notifyWixHeight);
+
+  setTimeout(notifyWixHeight, 150);
+  setTimeout(notifyWixHeight, 400);
+  setTimeout(notifyWixHeight, 900);
 }
 
 /* =========================
@@ -111,15 +133,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       data.forEach((item, index) => {
         const content = copy.services[index];
-        if (!content || !item?.Image?.url) return;
+        if (!content || !item || !item.Image || !item.Image.url) return;
 
-        const section = createServiceSection(item, content, index, copy.cta);
+        const section = buildSection(item, content, index, copy.cta);
         servicesEl.appendChild(section);
       });
 
-      setTimeout(notifyWixHeight, 250);
-      window.addEventListener("load", notifyWixHeight);
-      window.addEventListener("resize", notifyWixHeight);
+      setupHeightObservers();
     })
-    .catch((err) => console.error("Fetch error:", err));
+    .catch((err) => {
+      console.error("Fetch error:", err);
+      setupHeightObservers();
+    });
 });
