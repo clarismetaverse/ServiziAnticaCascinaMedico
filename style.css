@@ -59,7 +59,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #d8c08e;
+  background: #e1d9c7;
   padding: clamp(36px, 5vw, 72px);
 }
 
